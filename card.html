@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            max-width: 800px; /* max-w-3xl */
+            margin-top: 2.5rem; /* mt-10 */
+            background-color: #ffffff; /* bg-white */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+        }
+
+        .cart-title {
+            font-size: 1.75rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            color: #4a5568; /* text-gray-800 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .cart-items {
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0; /* border-b border-gray-200 */
+            padding-bottom: 1rem; /* py-4 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .product-info h3 {
+            font-size: 1.25rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: #4a5568; /* text-gray-800 */
+            margin-bottom: 0.25rem; /* mb-1 */
+        }
+
+        .product-info p {
+            font-size: 0.875rem; /* text-sm */
+            color: #718096; /* text-gray-500 */
+        }
+
+        .quantity-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-info span {
+            margin-right: 1rem; /* mr-4 */
+            color: #4a5568; /* text-gray-600 */
+        }
+
+        .remove-button {
+            background-color: #dc2626; /* bg-red-500 */
+            color: #ffffff; /* text-white */
+            font-weight: 600; /* font-semibold */
+            padding: 0.5rem 0.75rem; /* py-1.5 px-3 */
+            border-radius: 0.375rem; /* rounded-lg */
+            cursor: pointer;
+            transition: background-color 0.2s ease; /* Smooth transition */
+            font-size: 0.875rem; /* text-sm */
+            border: none;
+        }
+
+        .remove-button:hover {
+            background-color: #c81e1e; /* hover:bg-red-600 */
+        }
+
+        .summary {
+            background-color: #f7fafc; /* bg-gray-50 */
+            padding: 1rem; /* p-4 */
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .summary h2 {
+            font-size: 1rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: #4a5568; /* text-gray-700 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        .total-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        .total-price span:first-child {
+            color: #718096; /* text-gray-600 */
+        }
+
+        .total-price span:last-child {
+            font-size: 1rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: #2d3748; /* text-gray-800 */
+        }
+
+        .summary p {
+            font-size: 0.875rem; /* text-sm */
+            color: #718096; /* text-gray-500 */
+        }
+
+        .checkout-button {
+            background-color: #3182ce; /* bg-blue-600 */
+            color: #ffffff; /* text-white */
+            font-weight: 600; /* font-semibold */
+            padding: 0.75rem 1.25rem; /* py-2.5 px-5 */
+            border-radius: 0.375rem; /* rounded-lg */
+            transition: background-color 0.2s ease; /* Smooth transition */
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .checkout-button:hover {
+            background-color: #235eab; /* hover:bg-blue-700 */
+        }
+
+        .checkout-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #order-confirmation {
+            display: none;
+            max-width: 800px; /* max-w-3xl */
+            margin-top: 2.5rem; /* mt-10 */
+            background-color: #ffffff; /* bg-white */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+        }
+
+        .confirmation-title {
+            font-size: 1.75rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            color: #16a34a; /* text-green-600 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        .confirmation-message {
+            font-size: 1rem;
+            color: #4a5568; /* text-gray-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .order-details {
+            background-color: #f7fafc; /* bg-gray-50 */
+            padding: 1rem; /* p-4 */
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .order-details h2 {
+            font-size: 1rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: #4a5568; /* text-gray-700 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        .order-details p {
+            font-size: 1rem;
+            color: #4a5568;
+        }
+
+        .order-number {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .back-to-cart-button {
+            background-color: #a0aec0; /* bg-gray-400 */
+            color: #ffffff; /* text-white */
+            font-weight: 600; /* font-semibold */
+            padding: 0.75rem 1.25rem; /* py-2.5 px-5 */
+            border-radius: 0.375rem; /* rounded-lg */
+            transition: background-color 0.2s ease; /* Smooth transition */
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .back-to-cart-button:hover {
+            background-color: #718096; /* hover:bg-gray-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <main class="main-content">
+        <h1 class="cart-title">Your Shopping Cart</h1>
+        <div id="cart-items" class="cart-items">
+            </div>
+        <div id="summary" class="summary">
+            <h2>Summary</h2>
+            <div class="total-price">
+                <span>Total:</span>
+                <span id="order-total">0.00</span>
+            </div>
+            <p>Shipping costs will be calculated at checkout.</p>
+        </div>
+        <div class="text-right">
+            <button id="checkout-btn" class="checkout-button">
+                Checkout
+            </button>
+        </div>
+    </main>
+
+    <div id="order-confirmation" class="main-content">
+        <h1 class="confirmation-title">Order Confirmed!</h1>
+        <p class="confirmation-message">Thank you for your purchase. Your order has been placed and will be processed shortly.</p>
+        <div class="order-details" id="confirmation-details">
+            <h2>Order Details</h2>
+            <p><span class="order-number">Order Number:</span> <span id="order-number-conf"></span></p>
+            <p><span class="order-number">Total:</span> <span id="confirmation-total"></span></p>
+            </div>
+        <div class="text-center">
+            <button id="back-to-cart-btn" class="back-to-cart-button">
+                Back to Cart
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const cartItemsContainer = document.getElementById('cart-items');
+        const orderTotalElement = document.getElementById('order-total');
+        const checkoutButton = document.getElementById('checkout-btn');
+        const orderConfirmationPage = document.getElementById('order-confirmation');
+        const orderNumberElement = document.getElementById('order-number-conf');
+        const confirmationTotalElement = document.getElementById('confirmation-total');
+        const backToCartButton = document.getElementById('back-to-cart-btn');
+
+        let cart = JSON.parse(sessionStorage.getItem('cart')) || [
+            { id: 1, name: "Product 1", price: 25.99, quantity: 2 },
+            { id: 2, name: "Product 2", price: 19.99, quantity: 1 },
+        ];
+
+        function updateCart() {
+            if (!cart || cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+                orderTotalElement.textContent = '0.00';
+                checkoutButton.disabled = true;
+                checkoutButton.classList.add('opacity-50', 'cursor-not-allowed');
+                return;
+            }
+
+            checkoutButton.disabled = false;
+            checkoutButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="product-info">
+                        <h3>${item.name}</h3>
+                        <p>Price: $${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="quantity-info">
+                        <span>Quantity: ${item.quantity}</span>
+                        <button data-id="${item.id}" class="remove-button">
+                            Remove
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            orderTotalElement.textContent = total.toFixed(2);
+
+            const removeButtons = document.querySelectorAll('.remove-button');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const itemId = parseInt(event.target.dataset.id);
+                    cart = cart.filter(item => item.id !== itemId);
+                    sessionStorage.setItem('cart', JSON.stringify(cart));
+                    updateCart();
+                });
+            });
+        }
+
+        checkoutButton.addEventListener('click', () => {
+            if (cart && cart.length > 0) {
+                const orderNumber = Math.floor(Math.random() * 1000000);
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+                orderNumberElement.textContent = orderNumber;
+                confirmationTotalElement.textContent = total.toFixed(2);
+
+                sessionStorage.removeItem('cart');
+                cart = [];
+                updateCart();
+
+                orderConfirmationPage.style.display = 'block';
+            }
+        });
+
+        backToCartButton.addEventListener('click', () => {
+            orderConfirmationPage.style.display = 'none';
+        });
+
+        updateCart();
+    </script>
+</body>
+</html>

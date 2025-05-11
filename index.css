@@ -1,0 +1,202 @@
+/* CSS for the bookstore homepage */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont; /* More modern font */
+}
+
+.top-banner {
+    background-color: brown;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top-banner h1 {
+    font-size: 2rem; /* Responsive font size */
+    color: white;
+}
+
+.main-nav {
+    background-color: blue;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem; /* Responsive padding */
+}
+
+.logo img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0; /* Reset default ul margin */
+    padding: 0; /* Reset default ul padding */
+}
+
+.nav-links li {
+    margin-right: 3.5rem; /* Responsive margin */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem; /* Responsive font size */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    padding-left: 0.1rem; /* Reduced left padding */
+}
+
+.search-bar img {
+    height: 30px;
+    margin-right: 0.5rem; /* Reduced right margin */
+}
+
+.search-bar input {
+    padding: 0.2rem;  /* Reduced vertical padding */
+    height: 28px;
+    border-radius: 15px;
+    border: none;
+    width: 10rem; /* Initial width, will expand */
+    font-size: 0.9rem;
+}
+
+.search-bar input:focus {
+    outline: none;
+    width: 15rem;  /* Expand on focus for better usability */
+    transition: width 0.3s ease;
+}
+
+
+.login-button {
+    background-color: black;
+    border: 2px solid rgb(199, 189, 189);
+    padding: 0.2rem 0.5rem;
+    border-radius: 15px;
+}
+
+.login-button a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 0.2rem 0.5rem;
+}
+
+.cart-icon img {
+    height: 30px;
+}
+
+.category-heading {
+    margin: 1.25rem 0; /* Responsive margin */
+}
+
+.category-heading h1 {
+    color: black;
+    text-align: center;
+    font-size: 1.5rem; /* Responsive font size */
+}
+
+.category-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.25rem 0.625rem; /* Responsive margins */
+    padding: 1.25rem; /* Responsive padding */
+    border: 3px solid black;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    gap: 1rem; /* Added gap for better spacing */
+}
+
+.category-link {
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.8rem;
+    color: black;
+    margin: 1.25rem; /* Responsive margin */
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-image {
+    border-radius: 100%;
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
+    margin-bottom: 0.5rem;
+}
+.category-image img {
+    border-radius: 100%;
+    height: 100px;
+    width: 100px;
+    
+}
+
+.category-item h1 {
+    font-size: 1rem; /* Responsive font size */
+}
+
+/* Responsive adjustments using media queries */
+@media (max-width: 768px) { /* Medium screens (tablets) */
+    .main-nav {
+        flex-direction: column;
+        text-align: center;
+    }
+    .nav-links {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .nav-links li {
+        margin-right: 1rem; /* Keep some margin */
+    }
+    .search-bar {
+        margin-top: 1rem;
+    }
+    .category-container {
+        justify-content: space-around; /* Or space-between, test which looks better */
+    }
+    .category-link {
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 480px) { /* Small screens (phones) */
+    .top-banner h1 {
+        font-size: 0.9rem; /* Smaller on very small screens */
+    }
+    .nav-links li {
+        margin-right: 0.5rem; /* Even less margin on phones */
+    }
+    .nav-links li a{
+        font-size: 0.9rem;
+    }
+    .search-bar input {
+        width: 8rem; /* Keep it constrained on very small screens */
+    }
+    .category-container {
+        flex-direction: column; /* Stack categories vertically on phones */
+        align-items: center;
+    }
+    .category-link {
+        margin: 0.5rem;
+    }
+    .category-item h1{
+        font-size: 0.9rem;
+    }
+}
